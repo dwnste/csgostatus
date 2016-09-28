@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>CSGOStatus</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="./">CSGOStatus</a>
+			</div>
+		</nav>
+
+		<div class="container">
+		{% if result == 'nonresult' %}
+			<form action="info" method='POST'>
+				<div class="form-group">
+					<label>Открыть консоль, ввести "status", скопировать содержимое и вставить в текстовое поле ниже</label>
+					<textarea name="status" id="status" class="form-control" placeholder="# userid name uniqueid connected ping loss state rate" rows=10></textarea>
+				 </div>
+				<button type="submit" class="btn btn-default">Ееее рок</button>
+			</form>
+		{% endif %}
+		{% if result == 'result' %}
+		<table class="table">
+			<tr>
+				<th>Name</th>
+				<th>Hours played in 2 weeks</th>
+				<th>Hours played</th>
+				<th>Friends banned</th>
+			</tr>
+			{% for player in info %}
+			<tr>
+				<td><a href="{{player.url}}"><img src="{{player.avatar}}" alt=""> {{player.name}}</a></td>
+				<td>{{player.fortwoweeks}}</td>
+				<td>{{player.forever}}</td>
+				<td>{{player.vacfriends}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		</div>
+	</body>
+</html>
